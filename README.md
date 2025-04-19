@@ -2,7 +2,7 @@
 
 A modern stock analysis application powered by a chain of AI agents to collect data, perform analysis, and create visualizations.
 
-![Chain of Agents](https://i.imgur.com/JZT6bL5.png)
+![Chain of Agents](images/Image-preview.png)
 
 ## Overview
 

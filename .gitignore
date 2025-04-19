@@ -1,0 +1,36 @@
+# Python-specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.env
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Flask cache files
+instance/
+.webassets-cache
+
+# Virtual environment
+venv/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Project-specific
+data/cache/*
+!data/cache/.gitkeep

@@ -1,0 +1,372 @@
+/* Modern stylesheet for Chain of Agents stock analysis system */
+
+/* === GLOBAL STYLES === */
+:root {
+    --primary-color: #4361ee;
+    --primary-light: #4895ef;
+    --secondary-color: #3a0ca3;
+    --accent-color: #f72585;
+    --success-color: #4cc9f0;
+    --warning-color: #f8961e;
+    --danger-color: #f94144;
+    --dark-color: #1f2639;
+    --light-color: #f8f9fa;
+    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.12);
+    --hover-shadow: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+}
+
+body {
+    background: linear-gradient(135deg, #f6f8fc, #e9f1f9);
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark-color);
+    min-height: 100vh;
+    padding-bottom: 30px;
+}
+
+/* === TYPOGRAPHY === */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+h1 {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.2rem;
+}
+
+.text-muted {
+    color: #6c8ebc !important;
+}
+
+/* === CARDS === */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--hover-shadow);
+}
+
+.card-header {
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 1rem 1.25rem;
+}
+
+.card-header h5 {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* === FORM ELEMENTS === */
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 2px solid #e1e8f0;
+    padding: 10px 15px;
+    transition: all 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-weight: 600;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(67, 97, 238, 0.3);
+}
+
+.btn-primary:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.btn-primary:hover:after {
+    transform: translateX(100%);
+}
+
+/* === AGENT PIPELINE === */
+.agent-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.data-agent {
+    background: var(--gradient-primary);
+}
+
+.analysis-agent {
+    background: var(--gradient-secondary);
+}
+
+.viz-agent {
+    background: var(--gradient-accent);
+}
+
+.progress {
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    background-color: #e9f1f9;
+}
+
+.progress-bar {
+    background: var(--gradient-primary);
+    transition: width 0.5s ease;
+}
+
+.agent-status {
+    margin-bottom: 20px;
+}
+
+.status-label {
+    transition: all 0.3s ease;
+}
+
+.status-running {
+    color: var(--primary-color);
+    font-weight: 600;
+    animation: pulse 1.5s infinite;
+}
+
+.status-processing {
+    color: var(--accent-color);
+    font-weight: 600;
+    animation: pulse 1.5s infinite;
+}
+
+.status-completed {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.status-error {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* === RECOMMENDATIONS === */
+.buy-recommendation {
+    color: #00c853;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 200, 83, 0.2);
+}
+
+.sell-recommendation {
+    color: #ff1744;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(255, 23, 68, 0.2);
+}
+
+.hold-recommendation {
+    color: #ffab00;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(255, 171, 0, 0.2);
+}
+
+.confidence-high {
+    font-weight: 600;
+    color: #00897b;
+}
+
+.confidence-medium {
+    font-weight: 600;
+    color: #26a69a;
+}
+
+.confidence-low {
+    font-weight: 600;
+    color: #4db6ac;
+}
+
+/* === CHARTS === */
+#stockChart {
+    min-height: 450px;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
+
+#loadingChart {
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c8ebc;
+    font-weight: 500;
+}
+
+.spinner-border {
+    color: var(--primary-color);
+}
+
+/* === ANALYSIS CONTENT === */
+#analysisContent h6, #insightsContent h6 {
+    color: var(--secondary-color);
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+#analysisContent p, #insightsContent p {
+    line-height: 1.7;
+    color: #546e7a;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#recommendationCard, #analysisCard, #insightsCard {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* Pipeline visualization */
+.pipeline-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 20px 0;
+}
+
+.pipeline-connector {
+    position: absolute;
+    top: 50%;
+    left: 45px;
+    right: 45px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(67, 97, 238, 0.3), rgba(67, 97, 238, 0.1));
+    z-index: 0;
+}
+
+.pipeline-connector.active {
+    background: var(--gradient-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+/* Glass morphism effect for cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Glowing accents */
+.glow-accent {
+    position: relative;
+}
+
+.glow-accent::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: var(--gradient-accent);
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 20px;
+}
+
+.glow-accent:hover::before {
+    opacity: 0.7;
+}
+
+/* Interactive elements */
+.interactive-element {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.interactive-element:hover {
+    transform: scale(1.05);
+}
+
+/* Tooltip styles */
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-tooltip .tooltip-text {
+    visibility: hidden;
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.custom-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

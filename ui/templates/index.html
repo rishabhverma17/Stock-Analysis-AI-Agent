@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis - Chain of Agents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="mb-4 mt-3">
+            <h1 class="text-center">Stock Analysis with AI Agents</h1>
+            <p class="text-center text-muted">Powered by Deepseek R1 on Ollama</p>
+        </header>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Stock Input</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="stockForm">
+                            <div class="mb-3">
+                                <label for="stockSymbol" class="form-label">Stock Symbol</label>
+                                <input type="text" class="form-control" id="stockSymbol" placeholder="e.g., AAPL, MSFT, GOOG" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="timePeriod" class="form-label">Time Period</label>
+                                <select class="form-select" id="timePeriod">
+                                    {% for period in time_periods %}
+                                    <option value="{{ period.value }}">{{ period.label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100" id="analyzeBtn">Analyze Stock</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Agent Pipeline</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="pipelineStatus">
+                            <div class="agent-status" id="agent1Status">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="agent-icon data-agent">1</div>
+                                    <div class="ms-2">
+                                        <h6 class="mb-0">Data Collector Agent</h6>
+                                        <small class="text-muted">Status: <span class="status-label">Idle</span></small>
+                                    </div>
+                                </div>
+                                <div class="progress mb-3" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="agent-status" id="agent2Status">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="agent-icon analysis-agent">2</div>
+                                    <div class="ms-2">
+                                        <h6 class="mb-0">Analysis Agent</h6>
+                                        <small class="text-muted">Status: <span class="status-label">Idle</span></small>
+                                    </div>
+                                </div>
+                                <div class="progress mb-3" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="agent-status" id="agent3Status">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="agent-icon viz-agent">3</div>
+                                    <div class="ms-2">
+                                        <h6 class="mb-0">Visualization Agent</h6>
+                                        <small class="text-muted">Status: <span class="status-label">Idle</span></small>
+                                    </div>
+                                </div>
+                                <div class="progress mb-3" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4" id="recommendationCard" style="display: none;">
+                    <div class="card-header">
+                        <h5>Recommendation</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="recommendationContent"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 id="chartTitle">Stock Chart</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="loadingChart" class="text-center p-5">
+                            <p>Enter a stock symbol and click "Analyze Stock" to generate a chart.</p>
+                        </div>
+                        <div id="stockChart" style="width: 100%; height: 400px; display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="card mb-4" id="analysisCard" style="display: none;">
+                    <div class="card-header">
+                        <h5>Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="analysisContent"></div>
+                    </div>
+                </div>
+
+                <div class="card mb-4" id="insightsCard" style="display: none;">
+                    <div class="card-header">
+                        <h5>Visualization Insights</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="insightsContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
